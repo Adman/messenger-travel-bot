@@ -21,8 +21,13 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return "travel bot page", 200
+    return "travel bot page - privacy policy at /privacy", 200
 
+
+@app.route('/privacy', methods=['GET'])
+def privacy():
+    out = 'We do not collect any profile info, user data or cookies.'
+    return out, 200
 
 
 def send_message(recipient_id, message_text):
