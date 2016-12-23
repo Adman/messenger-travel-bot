@@ -165,15 +165,15 @@ def get_line(nick, args, vehicle):
 
 def response(sender_id, msg):
     out = 'Wrong command. Type help.'
-    if msg.startswith('vlak '):
+    if msg.lower().startswith('vlak '):
         out = get_line(sender_id, msg[5:], 'vlak')
-    elif msg.startswith('bus '):
+    elif msg.lower().startswith('bus '):
         out = get_line(sender_id, msg[4:], 'bus')
-    elif msg.startswith('spoj '):
+    elif msg.lower().startswith('spoj '):
         out = get_line(sender_id, msg[5:], 'vlakbus')
-    elif msg.startswith('mhd '):
+    elif msg.lower().startswith('mhd '):
         out = mhd(sender_id, msg[4:])
-    elif msg.startswith('help'):
+    elif msg.lower().startswith('help'):
         out = 'vlak/bus/mhd/spoj <from> - <to> - [time] - [date]\nor vlak/bus/mhd/spoj next'
 
     send_message(sender_id, out)
