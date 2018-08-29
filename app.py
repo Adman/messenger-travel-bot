@@ -16,7 +16,6 @@ searched = {}
 
 @app.route('/', methods=['GET'])
 def verify():
-    # if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
     if "hub.challenge" in request.args:
         if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return "Verification token mismatch", 403
@@ -167,16 +166,19 @@ def get_line(nick, args, vehicle):
 
 def response(sender_id, msg):
     out = 'Wrong command. Type help.'
-    if msg.lower().startswith('vlak '):
-        out = get_line(sender_id, msg[5:], 'vlak')
-    elif msg.lower().startswith('bus '):
-        out = get_line(sender_id, msg[4:], 'bus')
-    elif msg.lower().startswith('spoj '):
-        out = get_line(sender_id, msg[5:], 'vlakbus')
-    elif msg.lower().startswith('mhd '):
-        out = mhd(sender_id, msg[4:])
-    elif msg.lower().startswith('help'):
-        out = 'vlak/bus/mhd/spoj <from> - <to> - [time] - [date]\nor vlak/bus/mhd/spoj next'
+    try:
+        if msg.lower().startswith('vlak '):
+            out = get_line(sender_id, msg[5:], 'vlak')
+        elif msg.lower().startswith('bus '):
+            out = get_line(sender_id, msg[4:], 'bus')
+        elif msg.lower().startswith('spoj '):
+            out = get_line(sender_id, msg[5:], 'vlakbus')
+        elif msg.lower().startswith('mhd '):
+            out = mhd(sender_id, msg[4:])
+        elif msg.lower().startswith('help'):
+            out = 'vlak/bus/mhd/spoj <from> - <to> - [time] - [date]\nor vlak/bus/mhd/spoj next'
+    except:
+        out = 'Failed to retrieve data.'
 
     send_message(sender_id, out)
 
@@ -196,7 +198,7 @@ def webhook():
 
                         response(sender_id, message_text)
 
-    return "ok", 200
+    return 'ok', 200
 
 
 def log(message):
