@@ -41,7 +41,7 @@ def split_args_by(args, by):
     return list(map(lambda x: x.strip(), args.split(by)))
 
 
-def generate_output(nick, dep, dest, date, result=None):
+def generate_output(result):
     out = 'Nothing found'
 
     if len(result) >= 1:
@@ -75,7 +75,7 @@ def mhd(nick, args):
         date = args[3]
 
     r = imhdsk.routes(f, t, time=time, date=date)
-    return generate_output(nick, f, t, date, result=r)
+    return generate_output(r)
 
 
 # nick == sender_id
@@ -98,7 +98,7 @@ def get_line(nick, args, vehicle):
         return 'You joker'
 
     r = cpsk.get_routes(dep, dest, vehicle=vehicle, time=time, date=date)
-    return generate_output(nick, dep, dest, date, result=r)
+    return generate_output(r)
 
 
 def response(sender_id, msg):
