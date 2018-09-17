@@ -1,6 +1,5 @@
-travel-messenger-bot
+messenger-travel-bot
 ====================
 
-Just learning to code messenger bot. Searches for buses, trains or
-public city transport.
-Thanks to cp.sk and imhd.sk
+Searches for buses, trains or public city transport and returns the response
+on messenger.
